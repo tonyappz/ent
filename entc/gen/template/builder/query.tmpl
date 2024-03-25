@@ -39,6 +39,12 @@ type {{ $builder }} struct {
 	path func(context.Context) ({{ $.Storage.Builder }}, error)
 }
 
+// {{ $builder }} specified schema on runtime
+func ({{ $receiver }} *{{ $builder }}) Schema(schema string) *{{ $builder }} {
+	{{ $receiver}}.schemaConfig.{{ $.Name }} = schema
+	return {{ $receiver }}
+}
+
 // Where adds a new predicate for the {{ $builder }} builder.
 func ({{ $receiver }} *{{ $builder }}) Where(ps ...predicate.{{ $.Name }}) *{{ $builder }} {
 	{{ $receiver}}.predicates = append({{ $receiver }}.predicates, ps...)
